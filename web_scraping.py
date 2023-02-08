@@ -19,7 +19,7 @@ def clean(s):#cleans the string to remove characters between []
             ret += i
     return ret
 
-url = "https://en.wikipedia.org/wiki/The_Wheel_of_Time_(TV_series)"#insert any url here--- only works for wikipedia tv series urls
+url = "https://en.wikipedia.org/wiki/The_Wheel_of_Time_(TV_series)"#insert any url here-- only works for wikipedia tv series urls
 
 result = requests.get(url)
 doc = BeautifulSoup(result.text, "html.parser")
