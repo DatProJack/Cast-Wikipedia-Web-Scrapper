@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
+
+
 def clean(s):#cleans the string to remove characters between []
     ret = ''
     skip1c = 0
@@ -19,7 +21,7 @@ def clean(s):#cleans the string to remove characters between []
             ret += i
     return ret
 
-url = "https://en.wikipedia.org/wiki/The_Wheel_of_Time_(TV_series)"#insert any url here-- only works for wikipedia tv series urls
+url = "https://en.wikipedia.org/wiki/Joy_of_Life_(TV_series)"#insert any url here-- only works for wikipedia tv series urls
 
 result = requests.get(url)
 doc = BeautifulSoup(result.text, "html.parser")
@@ -32,12 +34,11 @@ for tag in headers:
         bulletlist = tag
         break
 
-
 scraped_sentences = []
+bulletlist = bulletlist.find_next(['ul', 'td'])
 
-bulletlist = bulletlist.find_next("ul")
 while bulletlist.name!="h2":
-    if bulletlist.name=="ul":
+    if bulletlist.name=="ul" or bulletlist.name=="td":#works better for bullet points, not so great for tables
         for tag in bulletlist:
             s = str(tag.text)
             s = clean(s).strip() #cleaning up and removing whitespace
