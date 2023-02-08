@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import csv
 
 
 
@@ -21,7 +22,7 @@ def clean(s):#cleans the string to remove characters between []
             ret += i
     return ret
 
-url = "https://en.wikipedia.org/wiki/Joy_of_Life_(TV_series)"#insert any url here-- only works for wikipedia tv series urls
+url = "https://en.wikipedia.org/wiki/The_Marvelous_Mrs._Maisel"#insert any url here-- only works for wikipedia tv series urls
 
 result = requests.get(url)
 doc = BeautifulSoup(result.text, "html.parser")
@@ -46,5 +47,8 @@ while bulletlist.name!="h2":
                 scraped_sentences.append(s)
     bulletlist = bulletlist.find_next()
 
-for s in scraped_sentences:
-    print(s)
+
+with open('parsedtext.csv', 'w', newline='') as file:
+  writer = csv.writer(file)
+  for s in scraped_sentences:
+    writer.writerow([s])
