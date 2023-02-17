@@ -22,7 +22,7 @@ def clean(s):#cleans the string to remove characters between [] ()
             ret += i
     return ret
 
-url = "https://en.wikipedia.org/wiki/The_Marvelous_Mrs._Maisel"#insert any url here-- only works for wikipedia tv series urls
+url = "https://en.wikipedia.org/wiki/Wednesday_(TV_series)"#insert any url here-- only works for wikipedia tv series urls
 
 result = requests.get(url)
 doc = BeautifulSoup(result.text, "html.parser")
@@ -72,6 +72,4 @@ while bulletlist.name!="h2":
                     description = clean(s[1])
                 writer.writerow([title,chartype,iteration,actorname,charname,description])#write here
                 iteration = iteration + 1
-
-            
     bulletlist = bulletlist.find_next()
